@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/png" href="/favicon_green.png">
+<div class="main" id='main'>
+    <span>
+    <br>Hello, this website is under construction! It will be a desktop computer simulator, with basic functionality. I intend 
+    to include fun and helpful applications and websites here, so check back frequently!<br><br>The calculator and calculator icon 
+    used in this website is embedded from another website <a href='https://www.online-calculator.com/'>https://www.online-calculator.com/</a> 
+    and is not property or creation of the developer of this website. <br>
+    Same goes for <a href='https://play2048.co/'>https://play2048.co/</a> and their icon. <br><br>
+    Feel free to explore the buttons in the taskbar below and have fun with my site! 
+    </span>
+</div>
+
+
+<iframe src='https://www.online-calculator.com/' title='Calculator' class='app' id='calculator'></iframe>
+
+<iframe src='https://play2048.co/' title='Tetris' class='app' id='tetris'></iframe>
+
+<div class="menu">
+    <button class="menu_button" onclick='start()'><img class='menu_icon' src='/favicon_green.png' title='Start menu'></button>
+    <button class="menu_button" onclick='home()'><img class='menu_icon' src='/favicon_blue.png' title='Desktop'></button>
+    <button class="menu_button" onclick='calculator()'><img class='menu_icon' src='https://www.online-calculator.com/images/online-calculator.svg' title='Calculator'></button>
+    <button class="menu_button" onclick='tetris()'><img class='menu_icon' src='https://play2048.co/favicon.ico' title='2048'></button>
+
+    <span class='clock' id='clock' title="It's a clock!"">clock</span>
+</div>
+
+<div class='start_menu' id='start_menu'>
+    <button class="menu_button"><img class='menu_icon' src='/favicon_green.png' title='Start'></button>
+    <button class="menu_button"><img class='menu_icon' src='/favicon_blue.png' title='App 1'></button>
+    <button class="menu_button"><img class='menu_icon' src='/favicon_red.png' title='App 2'></button>
+    <button class="menu_button"><img class='menu_icon' src='/favicon_yellow.png' title='App 3'></button>
+    This is under construction too!
+</div>
+
+<style>
+.main {
+    background-color:powderblue;
+    margin:0;
+    height: 100vh;
+    padding-left:10px;
+}
+.menu {
+    margin:0;
+    width:100%;
+    height: 70px;
+    position: fixed;
+    bottom:0;
+    background-color:orange;
+}
+.menu_button {
+    background-color: transparent;
+    border:none;
+    height:70px;
+}
+.menu_button:hover {
+    transform: rotate(20deg);
+}
+.menu_icon {
+    width:30px;
+    height:30px;
+}
+.clock {
+    position:absolute;
+    right:10px;
+    line-height:70px; /*Basically centers the clock inside the menu*/
+}
+
+.start_menu {
+    height:500px;
+    width:50%;
+    background-color:grey;
+    position:fixed;
+    top:20%;
+    left:25%;
+    opacity: 0.7;
+}
+.app {
+    margin:0;
+    height:100vh;
+    width:99%; /*Because 100% width makes a horizontal scrollbar*/
+}
+body {
+    margin:0;
+}
+</style>
+
+<script>
+    document.getElementById('calculator').style.display = 'none'
+    document.getElementById('tetris').style.display = 'none'
+
+    tracker = false
+    document.getElementById('start_menu').style.display = 'none'
+    function start(){
+        if(tracker == false) {
+            document.getElementById('start_menu').style.display = 'block'
+            tracker = true;
+        }
+        else {
+            document.getElementById('start_menu').style.display = 'none'
+            tracker = false;
+        }
+    }
+
+    function calculator() {
+        document.getElementById('calculator').style.display = 'block'
+        document.getElementById('main').style.display = 'none'
+        document.getElementById('tetris').style.display = 'none'
+    }
+    function tetris() {
+        document.getElementById('main').style.display = 'none'
+        document.getElementById('calculator').style.display = 'none'
+        document.getElementById('tetris').style.display = 'block'
+    }
+    function home() {
+        document.getElementById('main').style.display = 'block'
+        document.getElementById('calculator').style.display = 'none'
+        document.getElementById('tetris').style.display = 'none'
+    }
+    
+    function mainloop() {
+        const d = new Date();
+        hour = d.getHours();
+        minute = d.getMinutes();
+        var designation = ' AM'
+        if(parseInt(hour) > 12) {
+            hour = parseInt(hour) - 12
+            designation = ' PM'}
+        if(minute < 10) {
+            minute = '0' + String(minute)}
+
+        document.getElementById("clock").innerHTML = hour + ':' + minute + designation
+        console.log('clock')
+        setTimeout(mainloop, 5000) //Clock updates every 5 seconds
+    }
+
+    mainloop();
+</script>
